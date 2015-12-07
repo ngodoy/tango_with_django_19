@@ -55,7 +55,7 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
-
+*.sqlite3
 # PyBuilder
 target/
 ### VirtualEnv template
