@@ -53,11 +53,12 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'tango_with_django_project_19.urls'
-
+TEMPLATE_DEBUG =True
+TEMPLATE_PATH = os.path.join(BASE_DIR,'templates')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_PATH],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
