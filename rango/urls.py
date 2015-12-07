@@ -2,8 +2,8 @@ from django.conf.urls import patterns, url
 from rango import views
 
 urlpatterns = [
-    url(r'^$', views.tempo, name='index'),
-    url(r'^about/$', views.about, name='about'),
+    url(r'^$', views.index, name='index'),
+    url(r'^about/$', views.about.as_view(), name='about'),
     url(r'^add_category/$', views.tempo, name='add_category'),
     url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.tempo, name='category'),
     url(r'^category/(?P<category_name_slug>[\w\-]+)/add_page/$', views.tempo, name='add_page'),
