@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'polls.apps.PollsConfig',
-    'rango.apps.RangoConfig',
+    #'polls.apps.PollsConfig',
+    #'rango.apps.RangoConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -52,7 +52,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'tango_with_django_project_192222.urls'
+ROOT_URLCONF = 'tango_with_django_project_19.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'tango_with_django_project_192222.wsgi.application'
+WSGI_APPLICATION = 'tango_with_django_project_19.wsgi.application'
 
 
 # Database
