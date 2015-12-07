@@ -4,7 +4,7 @@ __author__ = 'leif'
 import os
 import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tango_with_django_project_17.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tango_with_django_project_19.settings')
 
 
 

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import HttpResponse
 
 from rango.models import Category
 from rango.models import Page
@@ -6,6 +7,11 @@ from rango.models import Page
 def about(request):
     #return HttpResponse("Rango says here is the about page.")
     return render(request, 'rango/about.html', {})
+
+def tempo(request):
+    return HttpResponse("Rango says here is the tempo page.")
+
+
 
 def category(request, category_name_slug):
     context_dict = {}

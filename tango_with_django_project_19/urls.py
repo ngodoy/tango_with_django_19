@@ -14,11 +14,26 @@ Including another URLconf
     2. Import the include() function: from django.conf.urls import url, include
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url, include , patterns
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+
+from registration.backends.simple.views import RegistrationView
+
+class MyRegistrationView(RegistrationView):
+    def get_success_url(self,request, user):
+        return '/rango/'
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^rango/', include('rango.urls')),
+    url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
+    url(r'^accounts/', include('registration.backends.default.urls')),
+
     #url(r'^polls/', include('polls.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.BASE_DIR)
+

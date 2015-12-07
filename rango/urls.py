@@ -2,8 +2,19 @@ from django.conf.urls import patterns, url
 from rango import views
 
 urlpatterns = [
+    url(r'^$', views.tempo, name='index'),
     url(r'^about/$', views.about, name='about'),
-    url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),
+    url(r'^add_category/$', views.tempo, name='add_category'),
+    url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.tempo, name='category'),
+    url(r'^category/(?P<category_name_slug>[\w\-]+)/add_page/$', views.tempo, name='add_page'),
+    #url(r'^register/$', views.tempo, name='register'),
+    #url(r'^login/$', views.tempo, name='login'),
+    #url(r'^logout/$', views.tempo, name='logout'),
+    url(r'^restricted/', views.tempo, name='restricted'),
+    url(r'^search/', views.tempo, name='search'),
+    url(r'^goto/$', views.tempo, name='goto'),
+    url(r'^like_category/$', views.tempo, name='like_category'),
+    url(r'^suggest_category/$', views.tempo, name='suggest_category'),
 
 ]
 # urlpatterns = patterns('',
