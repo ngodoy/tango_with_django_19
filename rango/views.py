@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from datetime import datetime
-
-
 from django.views import generic
+
 from rango.models import Category
 from rango.models import Page
-
+from rango.forms import CategoryForm, PageForm
+from rango.forms import UserForm, UserProfileForm
 
 # Create your views here.
 
@@ -57,32 +57,50 @@ def tempo(request):
     return HttpResponse("Rango says here is the tempo page.")
 
 
+class category(generic.DetailView):
+    model = Category
+    slug_url_kwarg = "category_name_slug"
+    template_name = "rango/category.html"
+    context_object_name = "category"
 
-def category(request, category_name_slug):
-    context_dict = {}
-    context_dict['result_list'] = None
-    context_dict['query'] = None
-    if request.method == 'POST':
+    def get_context_data(self, **kwargs):
+            context = super(category, self).get_context_data(**kwargs)
+            pages = Page.objects.filter(category=context['category']).order_by('-views')
+            context['pages'] = pages
+            if 'query' in context:
+                context['query'] = context['category'].name
+            return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(category, self).get_context_data(**kwargs)
         query = request.POST['query'].strip()
 
         if query:
             # Run our Bing function to get the results list!
             #result_list = run_query(query)
             result_list =[]
+            context['result_list'] = result_list
+            context['query'] = query
 
-            context_dict['result_list'] = result_list
-            context_dict['query'] = query
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
-    try:
-        category = Category.objects.get(slug=category_name_slug)
-        context_dict['category_name'] = category.name
-        pages = Page.objects.filter(category=category).order_by('-views')
-        context_dict['pages'] = pages
-        context_dict['category'] = category
-    except Category.DoesNotExist:
-        pass
+class add_page(generic.UpdateView):
+    #return render(request, 'rango/add_page.html', {'form':form, 'category': cat})
+    form_class = PageForm
+    template_name = "rango/add_page.html"
+    model = Category
+    slug_url_kwarg = "category_name_slug"
+    context_object_name = "category"
 
-    if not context_dict['query']:
-        context_dict['query'] = category.name
+    def get_success_url(self):
+        return reverse('category', kwargs={'category_name_slug': self.object.slug,})
 
-    return render(request, 'rango/category.html', context_dict)
+    def form_valid(self, form):
+        cat = self.get_object()
+        page = form.save(commit=False)
+        page.category = cat
+        page.views = 0
+        page.save()
+        print page.id
+        return HttpResponseRedirect(self.get_success_url())
