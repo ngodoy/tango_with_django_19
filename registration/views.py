@@ -38,6 +38,8 @@ class _RequestPassingFormView(FormView):
         # form control.
         form_class = self.get_form_class(request)
         form = self.get_form(form_class)
+        print form.is_valid()
+        print form.errors
         if form.is_valid():
             # Pass request to form_valid.
             return self.form_valid(request, form)

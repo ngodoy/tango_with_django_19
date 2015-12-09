@@ -102,5 +102,5 @@ class add_page(generic.UpdateView):
         page.category = cat
         page.views = 0
         page.save()
-        print page.id
+        print page
         return HttpResponseRedirect(self.get_success_url())
